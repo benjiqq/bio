@@ -574,7 +574,7 @@ pub const Interpreter = struct {
                 if (maybe) |input| {
                     _ = try linereader.linenoise_wrapper.addToHistory(input);
 
-		    if (std.mem.eql(u8, input, ".quit")) {
+		    if (std.mem.eql(u8, input, "(quit)")) {
                         break;
                     }
                     var maybeResult = self.parseAndEvalExpression(input) catch |err| {
