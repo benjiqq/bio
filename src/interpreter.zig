@@ -573,6 +573,10 @@ pub const Interpreter = struct {
             if (self.readBalancedExpr(&linereader.linenoise_reader, "bio> ")) |maybe| {
                 if (maybe) |input| {
                     _ = try linereader.linenoise_wrapper.addToHistory(input);
+
+		    if (std.mem.eql(u8, input, ".quit")) {
+                        break;
+                    }
                     var maybeResult = self.parseAndEvalExpression(input) catch |err| {
                         try self.printErrorFmt(SourceLocation.current(), "read-eval failed: \n", .{});
                         try self.printError(err);
